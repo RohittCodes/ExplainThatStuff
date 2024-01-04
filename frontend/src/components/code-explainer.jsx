@@ -28,11 +28,14 @@ const CodeExplainer = () => {
   const displayData = output.split("\n");
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center mx-8 gap-4">
+    <div className="flex flex-col justify-center items-center mx-4 pb-4 gap-4">
+      <div className="w-full">
+        <h1>Code Explanation</h1>
+      </div>
       <textarea
         type="text"
         onChange={handleInput}
-        className="h-36 w-full p-4 border-2 border-black rounded-md"
+        className="h-[32rem] overflow-auto w-full p-4 border-2 border-black rounded-md resize-none"
       />
       <button
         onClick={handleProcessData}
@@ -40,11 +43,13 @@ const CodeExplainer = () => {
       >
         Click me
       </button>
-      <div>
-        {displayData.map((data, index) => (
-          <p key={index}>{data}</p>
-        ))}
-      </div>
+      {displayData != "" && (
+        <div className="h-full">
+          {displayData.map((data, index) => (
+            <p key={index}>{data}</p>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

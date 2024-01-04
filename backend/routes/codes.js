@@ -25,10 +25,13 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    console.log("running");
-    res.send("running");
+    const snippets = db.collection("programs");
+    const sanpshot = await snippets.get();
+    const list = sanpshot.docs.map((doc) => doc.data());
+    res.status(200);
+    res.send(list);
   } catch (error) {
     console.error(error);
   }

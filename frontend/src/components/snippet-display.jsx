@@ -6,6 +6,7 @@ const SnippetDisplay = (props) => {
       <div className="w-full flex justify-between">
         <p className="text-xl">{props.title}</p>
         <p>{props.by}</p>
+        <p>{props.code}</p>
       </div>
       <button>Some</button>
     </div>
