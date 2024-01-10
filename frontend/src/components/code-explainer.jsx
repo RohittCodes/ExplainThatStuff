@@ -1,12 +1,9 @@
 import { useState } from "react";
+import { useDrop } from "react-dnd";
 
 const CodeExplainer = () => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-
-  const handleInput = (e) => {
-    setInput(e.target.value);
-  };
 
   const handleProcessData = async () => {
     try {
@@ -27,14 +24,21 @@ const CodeExplainer = () => {
 
   const displayData = output.split("\n");
 
+  const [, drop] = useDrop({
+    accept: "SNIPPET_ITEM",
+    drop: (item) => setInput(item.code),
+  });
+
   return (
     <div className="flex flex-col justify-center items-center mx-4 pb-4 gap-4">
       <div className="w-full">
         <h1>Code Explanation</h1>
       </div>
       <textarea
+        ref={drop}
         type="text"
-        onChange={handleInput}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
         className="h-[32rem] overflow-auto w-full p-4 border-2 border-black rounded-md resize-none"
       />
       <button
@@ -43,10 +47,10 @@ const CodeExplainer = () => {
       >
         Click me
       </button>
-      {displayData != "" && (
-        <div className="h-full">
+      {displayData !== "" && (
+        <div className="">
           {displayData.map((data, index) => (
-            <p key={index}>{data}</p>
+            <div key={index}>{data}</div>
           ))}
         </div>
       )}
